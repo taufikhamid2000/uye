@@ -20,7 +20,11 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Category::create($category);
+            // Avoid duplicate entries
+            Category::updateOrCreate(
+                ['name' => $category['name']], // Match on the name field
+                ['slug' => $category['slug']] // Update or set the slug
+            );
         }
     }
 }
