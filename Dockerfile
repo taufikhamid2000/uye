@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql mbstring exif bcmath gd
+    && docker-php-ext-install pdo_pgsql pdo_mysql mbstring exif bcmath gd
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
