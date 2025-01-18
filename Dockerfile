@@ -13,13 +13,13 @@ RUN apt-get update && apt-get install -y \
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy application files
+# Copy application files, including pre-built assets
 COPY . .
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Expose Render's dynamic port
+# Expose Render's default dynamic port
 EXPOSE 10000
 
 # Start the application with PHP's built-in server
