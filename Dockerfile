@@ -35,11 +35,11 @@ RUN composer install --optimize-autoloader --no-dev
 # Install Node.js dependencies and build frontend assets
 RUN npm install && npm run build
 
-# Expose port
-EXPOSE 8000
+# Expose the dynamic port
+EXPOSE 8080
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 
-# Start the application
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Start the application with dynamic port binding
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
