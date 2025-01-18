@@ -1,33 +1,27 @@
-# Use the official PHP 8.2 image with FPM and Alpine for lightweight production
-FROM php:8.2-fpm-alpine
+# Use the official PHP 8.2 image with FPM
+FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www
 
-# Update package index and install system dependencies
-RUN apk update && apk add --no-cache \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
     bash \
     git \
     curl \
-    libpng \
     libpng-dev \
-    libjpeg-turbo \
-    libjpeg-turbo-dev \
-    libfreetype \
-    libfreetype-dev \
-    libzip \
+    libjpeg-dev \
+    libfreetype6-dev \
     libzip-dev \
     unzip \
-    oniguruma \
-    oniguruma-dev \
+    libonig-dev \
     nodejs \
     npm \
-    make \
-    g++
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl gd
+    build-essential \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip exif gd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer globally
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
