@@ -25,8 +25,8 @@ RUN composer install --optimize-autoloader --no-dev
 # Install Node.js dependencies and build frontend assets
 RUN npm install && npm run build
 
-# Expose Render's default dynamic port
-EXPOSE 8080
+# Expose the Render dynamic port
+EXPOSE 10000
 
-# Start the application with PHP's built-in server
+# Start the application and bind to Render's dynamic port
 CMD ["php", "-S", "0.0.0.0:${PORT}", "-t", "public"]
