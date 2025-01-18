@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\BusinessProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Default Welcome Page
@@ -49,6 +50,15 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
         return 'Welcome, Student!';
     })->name('dashboard');
 });
+
+Route::middleware(['auth'])->prefix('business-profiles')->name('business-profiles.')->group(function () {
+    Route::get('create', [BusinessProfileController::class, 'create'])->name('create');
+    Route::post('store', [BusinessProfileController::class, 'store'])->name('store');
+});
+
+// Public route for viewing a business profile
+Route::get('/business-profiles/{id}', [BusinessProfileController::class, 'show'])->name('business-profiles.show');
+Route::get('/listings/{id}', [ListingController::class, 'show'])->name('listings.show');
 
 // Auth Routes (Laravel Breeze)
 require __DIR__ . '/auth.php';

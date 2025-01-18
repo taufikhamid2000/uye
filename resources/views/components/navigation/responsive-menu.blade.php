@@ -28,6 +28,26 @@
                 </x-responsive-nav-link>
             </div>
         </div>
+
+        <!-- Responsive Business Profiles Dropdown -->
+        <div x-data="{ openProfiles: false }" class="pt-2">
+            <button @click="openProfiles = ! openProfiles" class="w-full text-left text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900 px-4 py-2 rounded-md">
+                {{ __('Business Profiles') }}
+                <svg class="inline h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <!-- Dropdown Content -->
+            <div x-show="openProfiles" class="mt-2 space-y-1 bg-gray-50 dark:bg-gray-800 rounded-md shadow-md">
+                <x-responsive-nav-link href="{{ route('business-profiles.create') }}" :active="request()->routeIs('business-profiles.create')">
+                    {{ __('Create Business Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('My Dashboard') }}
+                </x-responsive-nav-link>
+            </div>
+        </div>
     </div>
 
     <!-- Responsive Theme Toggle -->

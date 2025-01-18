@@ -158,4 +158,10 @@ class ListingController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $listing = Listing::with('user', 'category')->findOrFail($id);
+
+        return view('listings.show', compact('listing'));
+    }
 }
