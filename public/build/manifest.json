@@ -74,5 +74,11 @@
       "assets/fa-v4compatibility-C9RhG_FT.woff2",
       "assets/fa-v4compatibility-CCth-dXg.ttf"
     ]
+  },
+  "resources/js/theme-toggle.js": {
+    "file": "assets/theme-toggle-DabWpugv.js",
+    "name": "theme-toggle",
+    "src": "resources/js/theme-toggle.js",
+    "isEntry": true
   }
 }
