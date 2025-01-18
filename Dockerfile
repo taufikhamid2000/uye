@@ -1,16 +1,17 @@
-# Use PHP with FPM for backend processing
-FROM php:8.2-fpm as php
+# Use the official PHP 8.2 image with FPM
+FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www
 
-# Install system dependencies
+# Install system dependencies, including Node.js and NPM
 RUN apt-get update && apt-get install -y \
     curl \
     unzip \
     libzip-dev \
-    nodejs \
-    npm \
+    gnupg \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
     && docker-php-ext-install zip
 
 # Install Composer globally
@@ -25,15 +26,8 @@ RUN composer install --optimize-autoloader --no-dev
 # Install Node.js dependencies and build frontend assets
 RUN npm install && npm run build
 
-# Use an Nginx image for serving the application
-FROM nginx:alpine
-
-# Copy PHP files to Nginx
-COPY --from=php /var/www /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose Render's default dynamic port
+# Expose Render's dynamic port
 EXPOSE 10000
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application with PHP's built-in server
+CMD ["php", "-S", "0.0.0.0:${PORT}", "-t", "public"]
