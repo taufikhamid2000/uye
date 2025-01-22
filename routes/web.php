@@ -4,6 +4,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\BusinessProfileController;
+use App\Http\Controllers\TekaTekiController;
+use App\Http\Controllers\VeyoyeeController;
+use App\Http\Controllers\JobMatchController;
+use App\Http\Controllers\SlideMarketController;
 use Illuminate\Support\Facades\Route;
 
 // Default Welcome Page
@@ -59,6 +63,11 @@ Route::middleware(['auth'])->prefix('business-profiles')->name('business-profile
 // Public route for viewing a business profile
 Route::get('/business-profiles/{id}', [BusinessProfileController::class, 'show'])->name('business-profiles.show');
 Route::get('/listings/{id}', [ListingController::class, 'show'])->name('listings.show');
+
+Route::get('/teka-teki', [TekaTekiController::class, 'index'])->name('teka-teki.index');
+Route::get('/veyoyee', [VeyoyeeController::class, 'index'])->name('veyoyee.index');
+Route::get('/jobmatch', [JobMatchController::class, 'index'])->name('jobmatch.index');
+Route::get('/slide-market', [SlideMarketController::class, 'index'])->name('slide-market.index');
 
 // Auth Routes (Laravel Breeze)
 require __DIR__ . '/auth.php';

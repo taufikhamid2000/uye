@@ -4,6 +4,7 @@
         {{ __('Dashboard') }}
     </x-nav-link>
 
+    <!-- UYE Dropdown -->
     <div class="relative">
         <x-dropdown>
             <x-slot name="trigger">
@@ -44,6 +45,50 @@
                     </x-dropdown-link>
                     <x-dropdown-link href="{{ route('listings.public') }}" :active="request()->routeIs('listings.public')">
                         {{ __('Public Listings') }}
+                    </x-dropdown-link>
+                </div>
+            </x-slot>
+        </x-dropdown>
+    </div>
+
+    <!-- Projects Dropdown -->
+    <div class="relative">
+        <x-dropdown>
+            <x-slot name="trigger">
+                <button
+                    class="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition"
+                    style="padding-top: 22px; padding-bottom: 6px;"
+                >
+                    <span>{{ __('Projects') }}</span>
+                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+            </x-slot>
+
+            <x-slot name="content">
+                <div
+                    class="absolute mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-md py-1 z-50"
+                    style="top: 10px; left: 10px;"
+                >
+                    <!-- TekaTeki -->
+                    <x-dropdown-link href="{{ route('teka-teki.index') }}" :active="request()->routeIs('teka-teki.index')">
+                        {{ __('TekaTeki - Quizzes') }}
+                    </x-dropdown-link>
+
+                    <!-- Veyoyee -->
+                    <x-dropdown-link href="{{ route('veyoyee.index') }}" :active="request()->routeIs('veyoyee.index')">
+                        {{ __('Veyoyee - Surveys') }}
+                    </x-dropdown-link>
+
+                    <!-- JobMatch -->
+                    <x-dropdown-link href="{{ route('jobmatch.index') }}" :active="request()->routeIs('jobmatch.index')">
+                        {{ __('JobMatch - Jobs') }}
+                    </x-dropdown-link>
+
+                    <!-- SlideMarket -->
+                    <x-dropdown-link href="{{ route('slide-market.index') }}" :active="request()->routeIs('slide-market.index')">
+                        {{ __('SlideMarket - Slides') }}
                     </x-dropdown-link>
                 </div>
             </x-slot>
