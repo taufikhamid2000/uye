@@ -38,18 +38,29 @@
             <!-- Listings -->
             <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
                 <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Listings</h2>
-                @if ($businessProfile->user->listings->isNotEmpty())
+                @if ($businessProfile->user && $businessProfile->user->listings->isNotEmpty())
                     <ul class="space-y-4">
-                        @foreach ($businessProfile->user->listings as $listing)
+                        @foreach ($businessProfile->listings as $listing)
                             <li class="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg shadow">
+                                <!-- Thumbnail -->
+                                <img src="{{ $listing->photos[0] ?? asset('default-image.jpg') }}" alt="{{ $listing->title }}"
+                                    class="w-full h-32 object-cover rounded-lg mb-2">
+
+                                <!-- Clickable Title -->
                                 <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">
-                                    {{ $listing->title }}
+                                    <a href="{{ route('listings.show', $listing->id) }}" class="text-blue-600 hover:underline">
+                                        {{ $listing->title }}
+                                    </a>
                                 </h3>
+
+                                <!-- Description -->
                                 <p class="text-sm text-gray-600 dark:text-gray-200">
                                     {{ $listing->description }}
                                 </p>
+
+                                <!-- View Details Link -->
                                 <a href="{{ route('listings.show', $listing->id) }}"
-                                   class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                                class="text-indigo-600 dark:text-indigo-400 hover:underline">
                                     View Details
                                 </a>
                             </li>
@@ -59,7 +70,6 @@
                     <p class="text-sm text-gray-600 dark:text-gray-200">No listings available.</p>
                 @endif
             </div>
-
         </div>
     </div>
 </x-app-layout>

@@ -56,4 +56,10 @@ class Listing extends Model
     {
         return $query->where('category_id', $categoryId);
     }
+
+    // In Listing model
+    public function businessProfile()
+    {
+        return $this->belongsTo(BusinessProfile::class);
+    }
 }

@@ -12,4 +12,9 @@ class BusinessProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
 }
