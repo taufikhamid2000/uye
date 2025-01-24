@@ -8,11 +8,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Assumes user is authenticated due to route middleware
-        $user = auth()->user();
+        // Define the available projects with their types and display names
+        $projects = [
+            'uye' => 'UYE',
+            'teka-teki' => 'TekaTeki',
+            'veyoyee' => 'Veyoyee',
+            'jobmatch' => 'JobMatch',
+            'slide-market' => 'SlideMarket',
+        ];
 
-        return view('dashboard', [
-            'user' => $user
-        ]);
+        // Pass the projects to the dashboard view
+        return view('dashboard', compact('projects'));
     }
 }

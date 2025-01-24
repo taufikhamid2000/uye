@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Public Listings') }}
+            {{ __('Public ' . ucfirst($type) . ' Listings') }}
         </h2>
     </x-slot>
 
     <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <!-- Filters and Sorting -->
-        <form action="{{ route('listings.public') }}" method="GET" class="mb-8 space-y-6">
+        <form action="{{ route('listings.index', ['type' => $type]) }}" method="GET" class="mb-8 space-y-6">
             <!-- Include CategoryFilter Component -->
             <x-category-filter :categories="$categories" :selectedCategories="$selectedCategories" />
 
@@ -72,7 +72,10 @@
                 @php
                     $photos = is_string($listing->photos) ? json_decode($listing->photos, true) : $listing->photos;
                 @endphp
-                <x-listing-card :listing="$listing" :photos="$photos" />
+                <x-listing-card
+                    :listing="$listing"
+                    :photos="$photos"
+                    :type="$type" />
             @empty
                 <div class="text-center col-span-full py-8">
                     <p class="text-gray-800 dark:text-gray-200 text-lg font-semibold">

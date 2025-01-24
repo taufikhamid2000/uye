@@ -18,45 +18,32 @@
                 </p>
             </div>
 
-            <!-- Quick Links / Listings Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Manage Listings Section -->
-                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 flex flex-col">
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Manage Listings</h2>
-                        <p class="text-sm text-gray-600 dark:text-gray-200 mt-2">
-                            You have {{ \App\Models\Listing::where('user_id', auth()->id())->count() }} active listings.
-                        </p>
-                    </div>
+            <!-- Projects Section -->
+            @foreach ($projects as $type => $name)
+                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">{{ $name }}</h2>
+                    <p class="text-sm text-gray-600 dark:text-gray-200 mt-2">
+                        Manage your listings for the {{ $name }} project.
+                    </p>
                     <div class="mt-4 flex space-x-4">
-                        <!-- View Listings -->
-                        <a href="{{ route('listings.index') }}" class="text-blue-600 dark:text-blue-400 hover:underline">
-                            {{ __('View Listings') }}
+                        <!-- View Public Listings -->
+                        <a href="{{ route('listings.public', ['type' => $type]) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+                            {{ __('View Public Listings') }}
                         </a>
 
                         <!-- Add New Listing -->
-                        <a href="{{ route('listings.create') }}" class="text-green-600 dark:text-green-400 hover:underline">
+                        <a href="{{ route('listings.create', ['type' => $type]) }}" class="text-green-600 dark:text-green-400 hover:underline">
                             {{ __('Add New Listing') }}
                         </a>
 
-                        <!-- Public Listings -->
-                        <a href="{{ route('listings.public') }}" class="text-purple-600 dark:text-purple-400 hover:underline">
-                            {{ __('Public Listings') }}
+                        <!-- Manage Listings -->
+                        <a href="{{ route('listings.index', ['type' => $type]) }}" class="text-purple-600 dark:text-purple-400 hover:underline">
+                            {{ __('Manage Listings') }}
                         </a>
                     </div>
-                </div>
 
-                <!-- Analytics & Reports Section -->
-                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 flex items-center justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Analytics & Reports</h2>
-                        <p class="text-sm text-gray-600 dark:text-gray-200 mt-2">
-                            Coming soon: View performance analytics for your profile and listings.
-                        </p>
-                    </div>
-                    <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">Learn More</a>
                 </div>
-            </div>
+            @endforeach
 
         </div>
     </div>

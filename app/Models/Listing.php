@@ -17,6 +17,7 @@ class Listing extends Model
         'user_id',
         'category_id',
         'photos',
+        'type', // Added 'type' to fillable
     ];
 
     protected $casts = [
@@ -35,11 +36,11 @@ class Listing extends Model
     }
 
     /**
-    *  Scope a query to filter listings by availability.
-    *
-    *   @param \Illuminate\Database\Eloquent\Builder $query
-    *   @return \Illuminate\Database\Eloquent\Builder
-    */
+     * Scope a query to filter listings by availability.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeAvailable($query)
     {
         return $query->where('availability', true);
@@ -55,5 +56,17 @@ class Listing extends Model
     public function scopeByCategory($query, $categoryId)
     {
         return $query->where('category_id', $categoryId);
+    }
+
+    /**
+     * Scope a query to filter listings by project type (e.g., 'uye', 'teka-teki').
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForType($query, $type)
+    {
+        return $query->where('type', $type);
     }
 }
