@@ -26,6 +26,9 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
+      - name: Create sqlite database
+        run: touch database/database.sqlite
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
